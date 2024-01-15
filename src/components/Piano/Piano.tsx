@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import piano1 from "/1.ogg"
+import {useEffect} from 'react';
 
 export const Piano = () => {
 
@@ -16,7 +15,7 @@ export const Piano = () => {
                         input.onmidimessage = (event) => {
                             const [command, note, velocity] = (event as MIDIMessageEvent).data;
                             if (command === 144 && velocity !== 0) {
-                                playSound(note);
+                                playSound(note,velocity);
                             } else if (command === 128 || (command === 144 && velocity === 0)) {
                                 stopSound(note);
                             }
@@ -32,25 +31,28 @@ export const Piano = () => {
 
         initializeMIDI();
 
-
     }, []);
 
-    const initializeSounds = () => {
-
-    }
-
-    const playSound = (note:number) => {
-        const testSound = new Audio(piano1);
-        testSound.play();
+    const playSound = (note:number,velocity:number) => {
+        note -= 12;
+        const soundToPlay:HTMLAudioElement = new Audio(`/${note.toString()}.mp3`);
+        soundToPlay.volume = 1 * (velocity / 127);
+        soundToPlay.play();
     };
 
     const stopSound = (note) => {
-        // Implement logic to stop the sound when the key is released
+
     };
+
+    const startSession = () => {
+        console.log("Started session");
+    }
 
     return (
         <div className="piano-keys">
-            {/* Render piano keys as needed */}
+            <button onClick={startSession}>
+                Click
+            </button>
         </div>
     );
 };
