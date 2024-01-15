@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import piano1 from "./1.ogg"
+import piano1 from "/1.ogg"
 
-const PianoApp = () => {
+export const Piano = () => {
 
     useEffect(() => {
         const initializeMIDI = async () => {
@@ -54,5 +54,3 @@ const PianoApp = () => {
         </div>
     );
 };
-
-export default PianoApp;
